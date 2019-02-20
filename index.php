@@ -18,11 +18,14 @@
       <form class="form-inline">
         <div class="form-group">
           <label for="url">Give URL to Scan</label>
-          <input style="margin-left:2em; margin-right:2em;" type="text" class="form-control" id="url" placeholder="http://example.com">
+          <input style="margin-left:2em; margin-right:2em; width:25em;" type="text" class="form-control" id="url" placeholder="http://example.com">
         </div>
         <button type="button" id="submit_url_btn" class="btn btn-primary">Submit</button>
       </form>
       <hr>
+
+      <div class="row">
+      </div>
 
     </main><!--container -->
 
@@ -32,6 +35,16 @@
 
   <script type="text/javascript">
   $(document).ready(function() {
+
+        $("#submit_url_btn").click(function(){
+            request_start_ms = Date.now()
+            $.get("/api.php?url="+encodeURI($("#url").value),function(o){
+                request_duration_ms = Date.now()-request_start_ms;
+                console.log(request_duration_ms);
+            },'json');
+
+            return(false);
+        });
 
   });
   </script>
