@@ -1,0 +1,6 @@
+<?php
+
+$API_SERVER_IP = "10.10.12.84";
+$API_SERVER_PORT = 8000;
+
+?>
