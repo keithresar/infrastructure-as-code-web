@@ -24,7 +24,16 @@
       </form>
       <hr>
 
-      <div class="row">
+      <div id="results">
+      </div>
+
+
+      <div class="card" id="response_tpl" style="width: 18rem; margin-bottom:2em;  display:none;">
+        <div class="card-header">
+          Request <span class="request_count"></span> (<span class="request_duration"></span>ms)
+        </div>
+        <div class="card-body">
+        </div>
       </div>
 
     </main><!--container -->
@@ -36,11 +45,21 @@
   <script type="text/javascript">
   $(document).ready(function() {
 
+        var request_count = 0;
+
         $("#submit_url_btn").click(function(){
             request_start_ms = Date.now()
             $.get("/api.php?url="+encodeURI($("#url").value),function(o){
                 request_duration_ms = Date.now()-request_start_ms;
+                request_count++;
                 console.log(request_duration_ms);
+
+                el = $("#response_tpl").clone();
+                el.removeAttr("id");
+                el.find(".request_count").html(request_count);
+                el.find(".request_duration").html(request_duration_ms);
+                el.show().prependTo("#results");
+
             },'json');
 
             return(false);
